@@ -31,7 +31,7 @@ jobs:
     - name: Strip
       uses: svenstaro/upx-action@2.0.1
       with:
-        file: "./dist/Alicorn ToGo.exe"
+        file: "'./dist/Alicorn ToGo.exe'"
         args: "-9"
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
