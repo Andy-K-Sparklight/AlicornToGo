@@ -1,13 +1,13 @@
 #-*- coding:utf-8 -*-
 import os, stat
 from tkinter.messagebox import showinfo
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import StringVar, Tk, Label, HORIZONTAL
+from tkinter.ttk import Progressbar
 from webbrowser import open_new_tab
 from requests import get
 from subprocess import Popen
 from sys import exit
-import time
+from time import localtime, strftime
 from zipfile import ZipFile
 import _thread as thread
 from traceback import format_exc
@@ -36,9 +36,9 @@ def catch_file_down(ui, progress, sv):
 
 def file_down(ui, progress):
     home = os.path.expanduser("~")
-    today = time.localtime()
-    y = int(time.strftime("%Y", today))
-    m = int(time.strftime("%m", today))
+    today = localtime()
+    y = int(strftime("%Y", today))
+    m = int(strftime("%m", today))
     headers = {'Proxy-Connection': 'keep-alive'}
     while y >= 2021:
         cur = str(y) + "." + str(m)
