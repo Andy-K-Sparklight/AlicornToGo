@@ -28,7 +28,9 @@ jobs:
     - name: Build
       run: |
         pyinstaller -y -F -w -i "icon.ico" -n "Alicorn ToGo" main.py
-        Rename-Item "./dist/Alicorn ToGo.exe" "./dist/AlicornToGo.exe"
+        cd dist
+        Rename-Item "Alicorn ToGo.exe" "AlicornToGo.exe"
+        cd ..
     - name: Strip
       uses: svenstaro/upx-action@2.0.1
       with:
