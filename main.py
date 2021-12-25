@@ -1,12 +1,11 @@
 #-*- coding:utf-8 -*-
 import os, stat
-from tkinter.messagebox import showinfo
 from tkinter import StringVar, Tk, Label, HORIZONTAL
 from tkinter.ttk import Progressbar
 from webbrowser import open_new_tab
 from requests import get
 from subprocess import Popen
-from sys import exit
+from sys import exit, argv
 from time import localtime, strftime
 from zipfile import ZipFile
 import _thread as thread
@@ -14,7 +13,15 @@ from traceback import format_exc
 from shutil import rmtree
 
 
+def add_hook():
+    pt = argv[0]
+    f = open(os.path.join(os.path.expanduser("~"), "alicorn-to-go-hook"), "w")
+    f.write(pt)
+    f.close()
+
+
 def main():
+    add_hook()
     home = os.path.expanduser("~")
     alicorn_beacon = os.path.join(home, "alicorn-launcher")
     if os.path.exists(alicorn_beacon):
@@ -65,7 +72,7 @@ def file_down(ui, progress):
             progress["mode"] = "determinate"
             progress.stop()
             size = 0
-            chk = 1024
+            chk = 5120
             total = int(r.headers['content-length'])
             print("File size is: " + str(total))
             f = os.path.join(home, "alicorn-to-go.zip")
@@ -78,7 +85,10 @@ def file_down(ui, progress):
                 file.close()
             z = ZipFile(f)
             d = os.path.join(home, "alicorn-to-go")
-            rmtree(d)
+            try:
+                rmtree(d)
+            except:
+                pass
             os.makedirs(d)
             z.extractall(d)
             z.close()
@@ -88,7 +98,7 @@ def file_down(ui, progress):
             os.chmod(al, stat.S_IRWXG)
             os.chmod(al, stat.S_IRWXU)
             Popen(al)
-            root.destroy()
+            ui.destroy()
             return True
         else:
             m -= 1
@@ -99,7 +109,6 @@ def file_down(ui, progress):
 
 
 def fetch():
-    closed = False
     root = Tk()
     sw = root.winfo_screenwidth()
     sh = root.winfo_screenheight()
