@@ -28,3 +28,8 @@ jobs:
     - name: Build
       run: |
         pyinstaller -y -F -w -i "icon.ico" -n "Alicorn ToGo" main.py
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: AlicornToGo
+        path: "./dist/Alicorn ToGo.exe"
