@@ -14,7 +14,7 @@ from shutil import rmtree
 
 
 def add_hook():
-    pt = argv[0]
+    pt = os.path.realpath(argv[0])
     f = open(os.path.join(os.path.expanduser("~"), "alicorn-to-go-hook"), "w")
     f.write(pt)
     f.close()
