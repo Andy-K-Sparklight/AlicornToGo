@@ -23,9 +23,11 @@ def add_hook():
 def main():
     add_hook()
     home = os.path.expanduser("~")
-    alicorn_beacon = os.path.join(home, "alicorn-launcher")
+    alicorn_beacon = os.path.join(home, "alicorn-is-here")
     if os.path.exists(alicorn_beacon):
-        Popen(alicorn_beacon)
+        f = open(alicorn_beacon, "r")
+        s = f.readline().strip()
+        Popen(s)
         exit(0)
         return
     else:
